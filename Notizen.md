@@ -164,3 +164,76 @@ for i in range(0,10):
         break
     print(i)
 ```
+
+## Funktionen
+```python
+def funktionsname(parameter):
+    print(parameter)
+
+funktionsname("Hallo")
+```
+
+```python
+def multiprint(name, count):
+    for i in range(0, count):
+        print(name)
+        
+multiprint("Karsten", 11)
+```
+
+
+## Dateien 
+
+r = read
+w = write
+a = append
+
+```python
+# Wir öffnen die Datei lesen.txt zum Lesen ("r") und speichern ihren Inhalt in die Variable file
+file = open("lesen.txt", "r")
+
+# Wir gehen alle Zeilen nacheinander durch
+# In der txt-Datei stehen für uns nicht sichtbare Zeilenumbruchszeichen, durch die jeweils das Ende einer Zeile markiert ist
+for line in file:
+    # Eine Zeile ohne Zeilenumbruch ausgeben
+    print(line.strip())
+```
+
+```python
+# Wir öffnen eine Datei zum Schreiben ("w": write)
+file = open("schreiben.txt", "w")
+
+students = ["Max", "Monika", "Erik", "Franziska"]
+
+# Wir loopen mit einer for-Schleife durch die Liste students
+for student in students:
+    # Mit der write-Methode schreiben wir den aktuellen String student und einen Zeilenumbruch in das file-Objekt
+    file.write(student + "\n")
+
+# Abschließend müssen wir die Datei wieder schließen
+file.close()
+```
+
+### robustere Version, bei der man sich nicht um das close() kümmern muss (bspw. wenn das programm vorher auf einen Fehler stößt)
+
+```python
+with open("schreiben.txt", "r") as file:
+    for line in file:
+        print(line)
+```
+
+### filtern beim Einlesen
+
+```python
+with open("datei.csv") as file:
+    for line in file:
+        data = line.strip().split(";")
+
+        if int(data[1]) < 2000000:
+            continue
+
+        if data[2] == "BUD":
+            continue
+
+        print(data)
+```
