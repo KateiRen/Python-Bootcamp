@@ -166,6 +166,7 @@ for i in range(0,10):
 ```
 
 ## Funktionen
+
 ```python
 def funktionsname(parameter):
     print(parameter)
@@ -177,12 +178,10 @@ funktionsname("Hallo")
 def multiprint(name, count):
     for i in range(0, count):
         print(name)
-        
 multiprint("Karsten", 11)
 ```
 
-
-## Dateien 
+## Dateien
 
 r = read
 w = write
@@ -237,3 +236,158 @@ with open("datei.csv") as file:
 
         print(data)
 ```
+
+## Listen Manipulation
+
+### Letztes Element entfernen und zurückgeben
+
+students = ["Max", "Monika", "Erik", "Franziska"]
+last_student = students.pop() # entfernt letztes Element und gibt es zurück
+
+### Index für letztes Element, vorletztes etc
+
+print(students[-1]) # letztes Element der Liste
+print(students[-2]) # vorletztes Element der Liste
+
+"-" bedeutet also Zählweise von hinten aus nicht von vorn
+
+### Liste erweitern
+
+students = ["Max", "Monika", "Erik", "Franziska"] + ["Jürgen"]
+
+### einzelne Elemente entfernen
+
+del students[3] # wenn wir den Index kennen
+
+students.remove["Franziska"] # über das Element selbst
+
+## List Slicing
+
+students = ["Max", "Monika", "Erik", "Franziska"]
+
+print(students[1:]) # erzeugt (und gibt aus) eine Teilliste vom 2. Element bis zum Ende der Liste
+
+==> ["Monika", "Erik", "Franziska"]
+
+print(students[2:4]) # erzeugt (und gibt aus) eine Teilliste vom 3. und bis vor 5. Element (Start bei 0)
+
+==> ["Erik", "Franziska"]
+
+print(students[1:-1]) # erstes Element überspringen und letztes Element ignorieren
+
+==> ["Monika", "Erik"]
+
+print(students[0:-1]) # ist identisch zu
+print(students[:-1])
+
+print(students[1:]) # ganze Liste ohne erstes Element
+
+GEHT AUCH FÜR STRINGS!!!!
+
+print("Hallo Welt"[-4:]) # letzte 4 Zeichen
+==> Welt
+
+## List Comprehensions
+
+xs = [1, 2, 3, 4, 5, 6, 7, 8]
+ys = [x * x for x in xs] # erstellt neue Liste aus Berechnung auf Basisliste ohne extra Schleife
+print(ys)
+
+students = ["Max", "Monika", "Erik", "Franziska"]
+buchstaben = [len(name) for name in students]
+print(buchstaben)
+
+xs = [ x/10 for x in range(0,100)]
+ys = [ x * x for x in xs]
+print(xs)
+print(ys)
+
+## Dictionaries
+
+d = {"Berlin": "BER", "Helsinki": "HEL", "Saigon": "SGN"}
+print (d)
+print (d["Helsinki"])  # Indexform liefert kritischen Fehler, wenn Key nicht existiert
+print (d.get("Helsinki")) # Abfrage mit get() liefert "None" wenn Key nicht existiert
+
+### Element ergänzen
+
+d["Budapest"] = "BUD"
+
+### Element entfernen
+
+del d["Budapest"]
+
+### Abfrage ob Key existiert
+
+if "Budapest" in d:
+    print("Budapest ist im Dictionary")
+
+## Tupel
+
+t = (1, 2, 3)  # Liste hat eckige Klammern, Dictionary {} und Tupel ()
+'kann nachträglich nicht verändert werden (Immutable)
+
+student = ("Max Müller", 22, "Informatik")
+
+name = student[0]
+age = student [1]
+subject = student[2]
+
+### Entpacken eines Tupels
+
+alternativ zum beispiel davor
+name, age, subject = student
+print(name)
+print(age)
+print(subject)
+
+### Nutzung für mehrere Rückgabewerte
+
+def get_student():
+    return ("Max Müller", 22, "Informatik")
+
+name, age, subject = get_student()
+
+### Liste von Tupels
+
+students = [
+    ("Max Müller", 22),
+    ("Monika Mustermann", 23)
+]
+
+for student in students:
+    print student
+    name, age  = student
+    print(name)
+    print(age)
+
+oder gleich
+
+for name, age in students:
+    print(name)
+    print(age)
+
+### Dictionary in Liste von Tupeln umwandeln
+
+d = {"Berlin": "BER", "Helsinki": "HEL", "Saigon": "SGN"}
+
+print(d.items())
+
+for key, value in d.items():
+    print(key + ": " + value)
+
+## Listen verschachteln
+
+liste = [
+    ["Berlin", "München", "Köln"],
+    ["budapest", "Pecs", "Sopron"]
+]
+
+print(liste[1][0])
+
+students = {
+    "Informatik": ["Max", "Monika"],
+    "BWL": ["Erik", "Franziska"]
+}
+
+print(students["BWL"])
