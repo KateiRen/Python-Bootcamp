@@ -241,28 +241,36 @@ with open("datei.csv") as file:
 
 ### Letztes Element entfernen und zurückgeben
 
+```python
 students = ["Max", "Monika", "Erik", "Franziska"]
 last_student = students.pop() # entfernt letztes Element und gibt es zurück
 
 ### Index für letztes Element, vorletztes etc
 
+```python
 print(students[-1]) # letztes Element der Liste
 print(students[-2]) # vorletztes Element der Liste
+```
 
 "-" bedeutet also Zählweise von hinten aus nicht von vorn
 
 ### Liste erweitern
 
+```python
 students = ["Max", "Monika", "Erik", "Franziska"] + ["Jürgen"]
+```
 
 ### einzelne Elemente entfernen
 
+```python
 del students[3] # wenn wir den Index kennen
 
 students.remove["Franziska"] # über das Element selbst
+```
 
 ## List Slicing
 
+```python
 students = ["Max", "Monika", "Erik", "Franziska"]
 
 print(students[1:]) # erzeugt (und gibt aus) eine Teilliste vom 2. Element bis zum Ende der Liste
@@ -286,9 +294,11 @@ GEHT AUCH FÜR STRINGS!!!!
 
 print("Hallo Welt"[-4:]) # letzte 4 Zeichen
 ==> Welt
+```
 
 ## List Comprehensions
 
+```python
 xs = [1, 2, 3, 4, 5, 6, 7, 8]
 ys = [x * x for x in xs] # erstellt neue Liste aus Berechnung auf Basisliste ohne extra Schleife
 print(ys)
@@ -301,29 +311,39 @@ xs = [ x/10 for x in range(0,100)]
 ys = [ x * x for x in xs]
 print(xs)
 print(ys)
+```
 
 ## Dictionaries
 
+```python
 d = {"Berlin": "BER", "Helsinki": "HEL", "Saigon": "SGN"}
 print (d)
 print (d["Helsinki"])  # Indexform liefert kritischen Fehler, wenn Key nicht existiert
 print (d.get("Helsinki")) # Abfrage mit get() liefert "None" wenn Key nicht existiert
+```
 
 ### Element ergänzen
 
+```python
 d["Budapest"] = "BUD"
+```
 
 ### Element entfernen
 
+```python
 del d["Budapest"]
+```
 
 ### Abfrage ob Key existiert
 
+```python
 if "Budapest" in d:
     print("Budapest ist im Dictionary")
+```
 
 ## Tupel
 
+```python
 t = (1, 2, 3)  # Liste hat eckige Klammern, Dictionary {} und Tupel ()
 'kann nachträglich nicht verändert werden (Immutable)
 
@@ -332,24 +352,31 @@ student = ("Max Müller", 22, "Informatik")
 name = student[0]
 age = student [1]
 subject = student[2]
+```
 
 ### Entpacken eines Tupels
 
 alternativ zum beispiel davor
+
+```python
 name, age, subject = student
 print(name)
 print(age)
 print(subject)
+```
 
 ### Nutzung für mehrere Rückgabewerte
 
+```python
 def get_student():
     return ("Max Müller", 22, "Informatik")
 
 name, age, subject = get_student()
+```
 
 ### Liste von Tupels
 
+```python
 students = [
     ("Max Müller", 22),
     ("Monika Mustermann", 23)
@@ -366,18 +393,22 @@ oder gleich
 for name, age in students:
     print(name)
     print(age)
+```
 
 ### Dictionary in Liste von Tupeln umwandeln
 
+```python
 d = {"Berlin": "BER", "Helsinki": "HEL", "Saigon": "SGN"}
 
 print(d.items())
 
 for key, value in d.items():
     print(key + ": " + value)
+```
 
 ## Listen verschachteln
 
+```python
 liste = [
     ["Berlin", "München", "Köln"],
     ["budapest", "Pecs", "Sopron"]
@@ -391,3 +422,178 @@ students = {
 }
 
 print(students["BWL"])
+```
+
+## Objektorientierung
+
+```python
+class Student(): # erster Buchstabe sollte groß sein
+    pass         # pass sagt aus "es ist ok, dass hier noch nichts steht"
+
+erik = Student()
+erik.firstname = "Erik"
+erik.lastname = "Mustermann"
+
+print(erik.firstname)
+```
+
+```python
+class Student(): # erster Buchstabe sollte groß sein
+    def print_name(self):
+        print(self.firstname + " " + self.lastname)
+```
+
+### Hier mit Konstruktor
+
+```python
+class Student(): # erster Buchstabe sollte groß sein
+    def __init__ (self, firstname, lastname):
+        self.firstname = firstname
+        self.lastname = lastname
+        self.term = 1
+    def print_name(self):
+        print(self.firstname + " " + self.lastname + " (Semester: " + str(self.term) + ")")
+    def increase_term(self):
+        self.term = self.term +1
+
+erik = Student("Erik", "Mustermann")
+erik.increase_term()
+erik.print_name()
+```
+
+### Private Eigenschaften und Methoden
+
+Komplexität nach außen reduzieren. Interne Funktionen nicht nach außen sichtbar machen.
+
+Konvention ist die Variable mit einem Unterstrich zu beginnen, wenn ein Zugriff von außen nicht erwünscht ist.
+Interaktion von außen ist noch möglich, sollte aber wenn möglich vermieden werden
+
+Startet die Variable mit zwei Unterstrichen, dann kann von außen nicht zugegriffen werden (lesend oder schreibend).
+
+```python
+class Student(): # externe Verwendung von term sollte vermieden werden
+    def __init__ (self, firstname, lastname):
+        self.firstname = firstname
+        self.lastname = lastname
+        self._term = 1
+```
+
+```python
+class Student(): # externe Verwendung von term nicht möglich
+    def __init__ (self, firstname, lastname):
+        self.firstname = firstname
+        self.lastname = lastname
+        self.__term = 1
+```
+
+```python
+class PhoneBook():
+    def __init__(self):
+        self.__entries = {}
+    def add(self, name, phone_number):
+        self.__entries[name] = phone_number
+    def get(self, name):
+        if name in self.__entries:
+            return self.__entires[name]
+        else:
+            return None
+
+book = PhoneBook()
+book.add("Mustermann", "08912345")
+book.add("Müller", "04012345")
+
+print(book.get("Mustermann"))
+```
+
+### Besondere Methoden __str__, __repr__, __len__
+
+print(book) # zeigt an, dass es sich um ein objekt der Klasse Phonebook ist und an Speicheradresse xyz liegt
+
+```python
+class PhoneBook():
+    def __str__(self):
+        return "Phonebook(" + str(self.__entries) + ")"
+
+print(book) # Zeigt jetzt meine Beschreibung mit Auflistung des Dictionaries
+
+book # zeigt immernoch die alte Ausgabe (Objekt-Klasse und Speicher)
+```
+
+```python
+class PhoneBook():
+    def __repr__(self):
+        return self.__str__()
+
+print(book) # Zeigt jetzt meine Beschreibung mit Auflistung des Dictionaries
+
+print(len(book)) # liefert Fehlermeldung
+```
+
+```python
+class PhoneBook():
+    def __len__(self):
+        return len(self.__entries)
+
+print(len(book)) # liefert die korrekte Anzahl der Einträge
+```
+
+### Vererbung
+
+```python
+class Student(): # externe Verwendung von term nicht möglich
+    def __init__(self, firstname, lastname):
+        self.firstname = firstname
+        self.lastname = lastname
+        self.__term = 1
+    def name(self):
+        return self.name + " " + self.surname
+
+class WorkingStudent(Student):
+    def __init__(self, firstname, surname, company):
+        super().__init_(firstname, surname)
+        self.company = company
+
+student = WorkingStudent("Max", "Müller", "ABC GmbH")
+print(student.name()) # da keine eigene Funktion definiert ist, wird die Funktion aus der Super-Klasse Student genutzt
+```
+
+```python
+class WorkingStudent(Student):
+    def __init__(self, firstname, surname, company):
+        super().__init_(firstname, surname)
+        self.company = company
+    def name(self):
+        return super().name() + " (" + self.company +")"
+
+student = WorkingStudent("Max", "Müller", "ABC GmbH")
+print(student.name()) # Jetzt wird die neue name Methode genutzt
+```
+
+Jetzt können wir eine Liste gemischt aus Students und WorkingStudents füllen und über alle Elemente iterieren und jeweils .name() aufrufen, ohne dass es Probleme gibt.
+
+
+
+```python
+
+```
+
+```python
+
+```
+
+```python
+
+```
+
+```python
+
+```
+
+```python
+
+```
+
+```python
+
+```
+
