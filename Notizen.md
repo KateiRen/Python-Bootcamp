@@ -244,6 +244,7 @@ with open("datei.csv") as file:
 ```python
 students = ["Max", "Monika", "Erik", "Franziska"]
 last_student = students.pop() # entfernt letztes Element und gibt es zurück
+```
 
 ### Index für letztes Element, vorletztes etc
 
@@ -571,14 +572,51 @@ print(student.name()) # Jetzt wird die neue name Methode genutzt
 
 Jetzt können wir eine Liste gemischt aus Students und WorkingStudents füllen und über alle Elemente iterieren und jeweils .name() aufrufen, ohne dass es Probleme gibt.
 
-
+## Variablentypen prüfen
 
 ```python
+w_student = WorkingStudent("Max", "Müller", "ABC GmbH")
+student = Student("Monika", "Mustermann")
 
+# ohne Berücksichtigung der Vererbung
+print(type(w_student))
+print(type(student))
+
+# mit Berücksichtigung der Vererbung
+print(isinstance(w_student, WorkingStudent)) # True
+print(isinstance(w_student, Student)) # True
+print(isinstance(student, WorkingStudent)) # False
+print(isinstance(student, Student)) # True
 ```
 
-```python
+## Bennung von Klassen und Variablen
 
+...gemäß styleguide
+PascalCase vs camelCase vs sneak_case
+
+Klassennamen: PascalCase
+Variablen: sneak_case
+Funktionsname: sneak_case
+
+cameCase kommt in Python nicht vor!
+
+## Statische Variablen
+
+```python
+class Car:
+    price = "expensive" # ohne "self" gilt für alle Instanzen der Klasse
+
+c = Car()
+print(c.price)
+
+Car.price  ="cheap" # ändern der Variable in der Klasse
+print(c.price) # ändert alle Instanzen
+
+# das will man meistens nicht, also drau achten:
+
+class Car:
+    def __init__(self):
+        self.price = "expensive" # für jede Instanz separat
 ```
 
 ```python
