@@ -619,19 +619,99 @@ class Car:
         self.price = "expensive" # für jede Instanz separat
 ```
 
-```python
+## Berechnungen
 
+```python
+import math
+print(math.pi)
+
+volumen = side ** 3 # Exponent 3
+flaeche = side ** 2 # Exponent 2
+flaeche += 15 # um 15 erhöhen
+flaeche -= 5 # um 5 verringern
+```
+
+## Module
+
+```python
+import hallo
+hallo.welt() # Aufruf der Funktionen über den Modulnamen
+hallo.mars()
 ```
 
 ```python
-
+from hallo import welt, mars
+welt() # Bei diesem Import sind die Funktionen direkt nutzbar
+mars()
 ```
 
 ```python
-
+import matplotlib.pyplot as plt # Importieren eines Teilbereichs und gleichzeitig umbenennen
+plt.plot([1, 2, 3], [5, 4, 5])
+plt.show()
 ```
 
 ```python
-
+from matplotlib import pyplot # Importieren eines Teilbereichs 
+pyplot.plot([1, 2, 3], [5, 4, 5])
+pyplot.show()
 ```
 
+### Module in ordnern
+
+Ordner: hallom
+hallom/__init__.py
+    __all__ = ["datei"] # erlaubt den Import mit *
+    from . import datei # erlaubt den Import des ganzen Moduls über den Namen
+hallom/datei.py
+    print("datei.py - Funktion f()")
+
+```python
+from hallom import datei
+datei.f()
+```
+
+```python
+from hallom import * # muss in der __init__.py erlaubt werden
+datei.f()
+```
+
+```python
+import hallom # muss in der __init__.py erlaubt werden
+hallom.datei.f()
+```
+
+### Vorstellung Modul CSV
+
+Dokumentation aller Standard-Module
+[https://docs.python.org/3.6/py-modindex.html](https://docs.python.org/3.6/py-modindex.html)
+
+- [CSV Modul Doku](https://docs.python.org/3.6/library/csv.html#module-csv)
+
+```python
+import csv
+with open("datei.csv", newline="") as file:
+    csv_file = csv_reader(file, delimiter=",")
+    for line in csv_file:
+        print(line)
+```
+
+## Python Version auslesen
+
+
+```python
+import sys
+print(sys.version)
+```
+
+```python
+```
+
+```python
+```
+
+```python
+```
+
+```python
+```
