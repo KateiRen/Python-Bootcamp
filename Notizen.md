@@ -652,12 +652,12 @@ plt.show()
 ```
 
 ```python
-from matplotlib import pyplot # Importieren eines Teilbereichs 
+from matplotlib import pyplot # Importieren eines Teilbereichs
 pyplot.plot([1, 2, 3], [5, 4, 5])
 pyplot.show()
 ```
 
-### Module in ordnern
+### Module in Ordnern
 
 Ordner: hallom
 hallom/__init__.py
@@ -698,10 +698,87 @@ with open("datei.csv", newline="") as file:
 
 ## Python Version auslesen
 
-
 ```python
 import sys
 print(sys.version)
+```
+
+## Herausfinden, welche Methoden ein Objekt hat
+
+```python
+print(objekt.__dict__)
+```
+
+## Request Modul
+
+...ist mit Anaconda bereits installiert
+[https://requests.readthedocs.io/en/master/](https://requests.readthedocs.io/en/master/)
+
+Beispielseite ["http://python.beispiel.programmierenlernen.io/index.php"]("http://python.beispiel.programmierenlernen.io/index.php")
+
+```python
+import requests
+r = requests.get("http://python.beispiel.programmierenlernen.io/index.php")
+print(r.status_code)
+print(r.headers)
+print(r.text)
+```
+
+## Beatiful Soup Modul
+
+...ist mit Anaconda bereits installiert
+[https://www.crummy.com/software/BeautifulSoup/](https://www.crummy.com/software/BeautifulSoup/)
+
+```python
+from bs4 import BeautifulSoup
+
+html = """
+<html>
+    <body>
+        <p>Ich bin ein Absatz</p>
+        <p>Ich bin noch ein Absatz</p>
+    </body>
+</html>
+"""
+
+doc = BeautifulSoup(html, "html.parser")
+
+for p in doc.find_all("p"):
+    print(p)
+
+for p in doc.find_all("p"):
+    print(p.text)
+
+```
+
+```python
+```
+
+```python
+```
+
+```python
+```
+
+```python
+```
+
+```python
+```
+
+```python
+```
+
+```python
+```
+
+```python
+```
+
+```python
+```
+
+```python
 ```
 
 ```python
