@@ -752,12 +752,90 @@ for p in doc.find_all("p"):
 ```
 
 ```python
+import requests
+r = requests.get("http://python.beispiel.programmierenlernen.io/index.php")
+from bs4 import BeautifulSoup
+doc = BeautifulSoup(r.text, 'html.parser')
+print(doc)
+
+for card in doc.select(".card"):
+    emoji = card.select_one(".emoji").text
+    content = card.select_one(".card-text").text
+    title = card.select(".card-title span")[1].text # h4 enthält zwei Spans, wir brauchen den zweiten
+    image = card.select_one("img").attrs["src"]
+
+    print(emoji)
+    print(title)
+    print(image)
+    print(content)
 ```
 
 ```python
+import requests
+r = requests.get("http://python.beispiel.programmierenlernen.io/index.php")
+from bs4 import BeautifulSoup
+doc = BeautifulSoup(r.text, 'html.parser')
+
+class CrawledArticle():
+    def __init__(self, title, emoji, content, image):
+        self.title = title
+        self.emoji = emoji
+        self.content = content
+        self.image = image
+
+articles = []
+
+for card in doc.select(".card"):
+    emoji = card.select_one(".emoji").text
+    content = card.select_one(".card-text").text
+    title = card.select(".card-title span")[1].text # h4 enthält zwei Spans, wir brauchen den zweiten
+    image = card.select_one("img").attrs["src"]
+
+    crawled = CrawledArticle(title, emoji, content, image)
+    articles.append(crawled)
+
+for article in articles:
+    print(article.title)
+
 ```
 
+
+
 ```python
+import requests
+from bs4 import BeautifulSoup
+from urllib.parse import urljoin
+
+class CrawledArticle():
+    def __init__(self, title, emoji, content, image):
+        self.title = title
+        self.emoji = emoji
+        self.content = content
+        self.image = image
+
+class ArticleFetcher():
+    def fetch(self):
+        url = "http://python.beispiel.programmierenlernen.io/index.php"
+        r = requests.get(url)
+        doc = BeautifulSoup(r.text, 'html.parser')
+        
+        articles = []
+
+        for card in doc.select(".card"):
+            emoji = card.select_one(".emoji").text
+            content = card.select_one(".card-text").text
+            title = card.select(".card-title span")[1].text # h4 enthält zwei Spans, wir brauchen den zweiten
+            image = urljoin(url, card.select_one("img").attrs["src"]) # relativen Pfad des Bildes auf volle URL erweitern
+
+            crawled = CrawledArticle(title, emoji, content, image)
+            articles.append(crawled)
+        return articles
+
+fetcher = ArticleFetcher()
+fetcher.fetch()
+
+for article in articles:
+    print(article.title)
 ```
 
 ```python
