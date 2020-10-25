@@ -799,8 +799,6 @@ for article in articles:
 
 ```
 
-
-
 ```python
 import requests
 from bs4 import BeautifulSoup
@@ -818,7 +816,7 @@ class ArticleFetcher():
         url = "http://python.beispiel.programmierenlernen.io/index.php"
         r = requests.get(url)
         doc = BeautifulSoup(r.text, 'html.parser')
-        
+
         articles = []
 
         for card in doc.select(".card"):
