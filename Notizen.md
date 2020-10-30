@@ -836,19 +836,63 @@ for article in articles:
     print(article.title)
 ```
 
+## Exceptions
+
+Ohne Exception Handling wird das Programm bei Eintreten einer Exception beendet
+
 ```python
+try:
+    print(5/0)
+    print(4) # wird nicht mehr ausgeführt
+except ZeroDivisionError:
+    print("Durch null teilen ist nicht erlaubt!")
+print(5) # Rest des Programms wird trotzdem noch ausgeführt
+```
+
+### eigene Exception
+
+```python
+class InvalidEmailError(Exception):
+    pass # erweitert die Exception-Klasse, braucht aber keinen eigenen Code, außer den eigenen Namen
+
+def send_mail(email, subject, content):
+    if not "@" in email:
+        raise InvalidEmailError("email does not contain an @")
+
+try:
+    send_mail("hallo", "Betreff", "Inhalt")
+except InvalidEmaiLError:
+    print("Bitte gebe eine gültige E-Mail ein")
 ```
 
 ```python
+try:
+    file=open("existiert.txt","r")
+    print(File)
+    print(5/0)
+except FileNotFoundError:
+    print("Datei wurde nicht gefunden")
+finally:
+    file.close() # egal was passiert, am Ende wird auf jeden Fall die Datei geschlossen
+```
+
+## With Konstrukt
+
+```python
+# Wenn der Block verlassen wird (warum auch immer), wird die Datei geschlossen
+with open("existiert.txt", "r") as file:
+    print(file)
+    print(5/0)
 ```
 
 ```python
-```
+# Auch hier analog - wenn der Block verlassen wird (hier mit return), wird die Datei geschlossen
+def do_something():
+    with open("existiert.txt", "r") as file:
+        print(file)
+        return "Hallo"
 
-```python
-```
-
-```python
+do_something()
 ```
 
 ```python
