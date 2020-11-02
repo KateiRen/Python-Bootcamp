@@ -895,6 +895,161 @@ def do_something():
 do_something()
 ```
 
+## Das Set
+
+Die Reihenfolge ist nicht bestimmt (bei einer Liste kommt das neue Element mit append immer an das Ende).
+Ein Element kann nicht doppelt enthalten sein.
+
+```python
+s = {"Hallo", "Welt"}
+s.add("Mars")
+s.add("Mars")
+print(s)
+
+if "Mars" in s: # ist performance mäßig mit einem Set optimal
+    print("Mars ist im Set")
+```
+
+```python
+# Wie viele verschiedene Wörter sind im Text?
+text="Hallo Welt Hallo Mars Hallo Welt"
+words = set()
+for word in text.split(" "):
+    words.add(words) # doppelte Werte werden irgnoriert
+    print(len(words))
+```
+
+## Die Queue
+
+Eintrag vom Anfang wegnehmen, neue Einträge hinzufügen
+
+```python
+import queue
+q = queue.Queue()
+
+q.put("Hallo")
+q.put("Welt")
+q.put("Hallo")
+q.put("Mars")
+q.put("Hallo")
+q.put("Pluto")
+
+print(q)
+print(q.get())
+print(q.get())
+
+while not q.empty():
+    element=q.get()
+    print(element)
+```
+
+## Die Priority Queue
+
+```python
+import queue
+q = queue.PriorityQueue()
+
+# ein Tupel mit Priorität, Wert wird erwartet
+q.put((10,"Hallo Welt"))
+q.put((15,"Mars"))
+q.put((5,"Wichtig"))
+
+print(q.get()) # 5, "Wichtig"
+print(q.get()) # 10, "Hallo Welt"
+```
+
+## Optionale Parameter, benannte Parameter
+
+```python
+def multi_print(number=3, word="Hello")
+    for i in range(0,number):
+        print(word)
+
+multi_print() # Alles Standard
+multi_print(5) # number überschreiben
+multi_print(word="Welt") # um führende Parameter nich neu beschreiben zu müssen, einfach den zu ändernden Parameter mit Namen zuweisen, alles andere bleibt Standard
+```
+
+## Kopie vs Referenz
+
+Primitive Datentypen (Zahl, String, Boolean, Tupel) werden bei der Übergabe in eine Funktion kopiert.
+Bei Datenstrukturen wird die Referenz auf das Objekt übergeben, eine Änderung des Objekts ist also auch außerhalb der Funktion sichtbar
+
+```python
+a=5
+
+def f(a):
+    a=3
+    print(a)
+
+f(a) # 3
+print(a) # 5
+```
+
+```python
+l=["Hallo", "Welt"]
+
+def f(x): # Nur eine Kopie der Referenz, nicht der Liste
+    x.append("!!!") # verändert die Liste auch außerhalb der Funktion
+    print(x)
+
+f(l) # ["Hallo", "Welt", "!!!"]
+print(l) # ["Hallo", "Welt", "!!!"]
+```
+
+```python
+l=["Hallo", "Welt"]
+
+def f(x): # Nur eine Kopie der Referenz, nicht der Liste
+    x=["Hallo", "Welt", "!!!"] # erzeugt eine neue Liste, Original bleibt unversehrt
+    print(x)
+
+f(l) # ["Hallo", "Welt", "!!!"]
+print(l) # ["Hallo", "Welt"]
+
+```
+
+## Variable Funktionsparameter
+
+```python
+def f(a, b, c):
+    print(a)
+    print(b)
+    print(c)
+
+f(1,2,3) # 1 2 3 
+
+l= [1, 2, 3] 
+# ziemlich umständlich
+f(l[0], l[1], l[2]) # 1 2 3
+
+#besser
+f(*l)  # zerlege die Liste und setze sie als Parameter ein
+```
+
+```python
+#def calc_max(a, b, c, d, e, f, g, h, ....) wäre ziemlich umständlich
+
+def calc_max(*params):
+    print(params)
+
+calc_max(1, 2, 3, 4, 5, 6, 7, 8) # gibt ein Tupel mit allen Werten aus
+```
+
+```python
+def calc_max(current_max, *params): # ersten Wert als Parameter übernehmen, Rest in das Tupel packen
+    print(current_max)
+    print(params)
+    for item in params:
+        if item>current_max:
+            current_max=item
+    return current_max
+
+calc_max(1,2,3)
+```
+
+```python
+```
 ```python
 ```
 
@@ -903,7 +1058,54 @@ do_something()
 
 ```python
 ```
+```python
+```
 
+```python
+```
+
+```python
+```
+```python
+```
+
+```python
+```
+
+```python
+```
+```python
+```
+
+```python
+```
+
+```python
+```
+```python
+```
+
+```python
+```
+
+```python
+```
+```python
+```
+
+```python
+```
+
+```python
+```
+```python
+```
+
+```python
+```
+
+```python
+```
 ```python
 ```
 
