@@ -1049,40 +1049,191 @@ calc_max(1,2,3)
 ```
 
 ```python
-```
-```python
+def f(**args): # erlaubt variable Parameter, die in Form eines Dictionaries übergeben werden
+    print(args)
+
+f(key="value", key2="Value")
 ```
 
 ```python
+def g(key, param2):
+    print(key)
+    print(param2)
+
+d = {"key": "Ich bin der Schlüssel", "param2": "Ich bin der Parameter"}
+
+g(key=d["key"],param2=d["param2"]) # geht, aber ist umständlich
+g(**d) # so kann direkt das Dictionary direkt übergeben werden
 ```
 
 ```python
+%matplotlib inline
+import matplotlib.pyplot as plt
+
+def create_plot(**plot_params): # plt.plot unterstützt sehr viele Parameter, die wollen wir nicht alle explizit abfragen und 1:1 durchreichen. Stattdessen nehmen wir die Parameter als Dictionary entgegen und geben das Dictionary einfach an plt.plot weiter
+    print(plot_params)
+    plt.plot([1, 2, 3], [5, 6, 5], **plot_params)
+    plt.show()
+
+create_plot(color="r", linewidth=10, linestyle="dashed")
 ```
+
+## Sortieren
+
 ```python
+l = ["Max", "Monika", "Erik", "Franziska"]
+l.sort() # aufsteigend
+print(l)
+l.sort(reverse = True) # absteigend
+print(l)
 ```
 
 ```python
+def get_length(item): # Eigene Funktion um Sortier-Parameter zu erstellen
+    return len(item)
+
+l = ["Max", "Monika", "Erik", "Franziska"]
+
+l.sort(key = get_length) # ohne () übergeben. Funktion wird wie eine Variable übergeben
+print(l)
+
+# geht auch einfacher, da wir ja nur die len() Funktion nutzen, also
+l.sort(key=len)
 ```
 
 ```python
+# Dictionary hat keine sort-Methode, hier nutzen wir sorted()
+d ={"Köln": "CGN", "Budapest": "BUD", "Saigon": "SGN"}
+print(sorted(d))
+print(sorted(d, reverse=True))
+
+# sorted() sortiert nicht die Liste/Dictionary in place, sondern gibt ein neues, sortiertes Objekt zurück ohne das Original zu ändern
+l = ["Max", "Monika", "Erik", "Franziska"]
+l2 = sorted(l)
+print(l)
+print(l2)
 ```
+
+### Lambda Funktion
+
 ```python
+students = [
+    ("Max", 3),
+    ("Monika", 2),
+    ("Erik", 3),
+    ("Franziska", 1)
+]
+
+def students_key(student):
+    return(student[1])
+
+students.sort(key=students_key)
+print(students)
+
+# >> geht einfacher, wenn wir die Funktion direkt als Parameter definieren
+
+students.sort(key= lambda student: student[1]) # lambda <eingabewert>: <ausgabe>
+print(students)
+
+# kann auch einer Variablen zugewiesen werden
+f = lambda student: student[1]
+f(("Max", 1))
+# gibt 1 aus
+```
+
+## Reguläre Ausdrücke
+
+[https://pythex.org](https://pythex.org)
+[RegExr](https://regexr.com/)
+
+```python
+import re
+sentence = "Ich habe 30 Hunde, die jeweils 4 Liter Wasser brauchen und 2 kg Nahrung."
+sentence.find("") # kann ich nur nutzen, wenn ich genau weiß auf welche Zahl ich suchen will
+
+re.findall("[0-9]+", sentence) # ["30", "4", "2"]
+re.search("[0-9]+", sentence) # findet nur des erste Auftreten, zeigt aber genau wo es gefunden wurde
 ```
 
 ```python
+re.search("der", "Hallo der Hallo") # suche "der" im String
+re.search("der?", "Hallo der Hallo") # suche "der" oder "de" im String (r ist Optional)
+re.search("der*", "Hallo derrrrrrrrr Hallo") # suche "der" oder "de" oder "derrrrrrr" im String (r ist Optional oder kann beliebig oft auftreten)
+re.search("der+", "Hallo der Hallo") # suche "der" oder "derrrr" im String (r muss mindestens 1x da sein, kann sich aber beliebig oft wiederholen)
+
+print(re.search(["1234567890"]), "Hallo 123 Hallo" )) # irgendwas aus dem String in [] muss da sein
+print(re.search(["1234567890"]+), "Hallo 123 Hallo" )) # Ziffer muss mindestens einmal da sein, kann sich beliebig oft wiederholen
+print(re.search(["0-9"]+), "Hallo 123 Hallo" )) # Ziffer muss mindestens einmal da sein, kann sich beliebig oft wiederholen
+```
+
+## Datumswerte
+
+```python
+from datetime imort datetime
+now = datetime.now()
+print(now)
+
+day= datetime(2017,8,20,20,0,0) # Jahr, Monat, Tag, Stunde, Minute, Sekunde
+print(day.year)
+print(day.minute)
+
+print(day.timestamp()) # Unix timestamp 1.1.1970, jede Sekunde eins erhöht
+print(day.timestamp()-now.timestamp())
 ```
 
 ```python
-```
-```python
+from datetime import date, time
+d = date(2017,8,20)
+print(d)
+
+t = time(20,1,4)
+print(t)
+
+print(date(2017,8,20) < date(2018,2,14))
+
+# zerlegen von datetime
+dt = datetime(2017, 8, 20, 20, 0, 0)
+print(dt.time()) # 20:00:00
+print(dt.date()) # 2017-08-20
+
+# combinieren zu datetime
+print(datetime.combine(d, t))
 ```
 
-```python
-```
+### formatierte Ausgabe
+[https://docs.python.org/3/library/datetime.html?highlight=strftime#strftime-strptime-behavior](https://docs.python.org/3/library/datetime.html?highlight=strftime#strftime-strptime-behavior)
 
 ```python
+from datetime import datetime
+
+now = datetime.now()
+
+print(now)
+print(now.strftime("%d.%m.%Y"))
 ```
+
+### formatierte Datumswerte einlesen
+
 ```python
+d = "18.07.2017" # bspw. eingelesene Werte in CSV Datei...
+dt = datetime.strptime(d, "%d.%m.%Y")
+print(dt)
+```
+
+### Rechnen mit Datumswerten
+
+```python
+from datetime import datetime, timedelta
+
+now = datetime.now()
+print(now + timedelta(days = 20, hours = 3, seconds = 1))
+
+day = datetime(2017,8,20)
+td = day - now # timedelta Objekt
+
+print(td)
+print(td.total_seconds())
+
 ```
 
 ```python
