@@ -1,2 +1,2 @@
 age=22
-print("Hello Welt"+str(age))
+print("Hello Welt "+str(age))

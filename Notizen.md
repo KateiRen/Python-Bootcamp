@@ -27,6 +27,93 @@ else:
     print("Nein, die Monika studiert hier nicht!")
 ```
 
+### Upper / Lower
+
+```python
+w = "Hallo"
+print(w.upper())
+print("Hallo".lower())
+```
+
+### StartsWith / EndsWith
+
+```python
+sentence = "Ist das Wetter heute gut?"
+
+if sentence[-1] == "?":
+    print("Der Satz endet mit einem Fragezeichen")
+
+if sentence.endswith("?"):
+    print("Der Satz endet mit einem Fragezeichen")
+
+if sentence.endswith("???"): # geht auch mit mehreren Zeichen
+    print("Der Satz endet mit drei Fragezeichen")
+
+if sentence.startswith("Ist"): # geht auch am Anfang
+    print("Der Satz beginnt mit Ist")
+```
+
+### Strip / LStrip / RStrip
+
+```python
+word = "    Hallo.  "
+
+print(word.strip()) # Hallo.  --> Punkt wird standardmäßig nicht entfernt
+print(word.strip( .)) # Hallo --> als Parameter alle Zeichen eingeben, die gelöscht werden sollen
+print(word.lstrip()) # nur auf der linken Seite werden die Zeichen entfernt
+print(word.strip()) # nur auf der rechten Seite werden die Zeichen entfernt
+
+print(sentence.rstrip("!?.,")) # alle Satzzeichen am Ende entfernen
+
+```
+
+### find
+
+```python
+sentence = "Ist das Wetter heute gut?"
+
+print(sentence.find(", ")) # 20
+print(sentence.find("!")) # -1 == nicht gefunden
+
+```
+
+### replace
+
+```python
+sentence = "Ist das Wetter heute gut?"
+
+print(sentence.replace(",", ";")) # Komma durch Semikolon ersetzt
+print(sentence.replace("und", "oder")) # geht auch mit mehreren Zeichen
+```
+
+### Lokalisierungen
+
+```python
+n = 5
+print("Ich habe " + str(n) + " Hunde")
+print("I got " + str(n) + " dogs")
+
+translations = {
+    "number_of_dogs": "Ich habe XXX Hunde"
+}
+
+print(translations["number_of_dogs"].replace("XXX", str(n)))
+
+translations = {
+    "number_of_dogs": "Ich habe {0} Hunde"
+}
+
+print(translations["number_of_dogs"].format(n)) # setzt die Zahl im Platzhalter ein
+
+print("Ich habe {0} {1}").format(5, "Katzen")) # mehrere Platzhalter sind möglich
+print("Ich habe {1} {0} mal").format(5, "Katzen")) # die Reihenfolge im Satzbau kann für andere Sprachen angepasst werden
+
+print("Pi hat den Wert von {0}".format(3.141529)) # übernimmt alle Kommastellen
+print("Pi hat den Wert von {0:.3f}".format(3.141529)) # übernimmt 3 Nachkommastellen
+
+print("Ich habe {number} {animal}").format(number=5, animal="Katzen")) # man kann die Platzhalter auch benennen
+```
+
 ## Typenumwandlung
 
 str(variable)
@@ -1017,9 +1104,9 @@ def f(a, b, c):
     print(b)
     print(c)
 
-f(1,2,3) # 1 2 3 
+f(1,2,3) # 1 2 3
 
-l= [1, 2, 3] 
+l= [1, 2, 3]
 # ziemlich umständlich
 f(l[0], l[1], l[2]) # 1 2 3
 
@@ -1201,6 +1288,7 @@ print(datetime.combine(d, t))
 ```
 
 ### formatierte Ausgabe
+
 [https://docs.python.org/3/library/datetime.html?highlight=strftime#strftime-strptime-behavior](https://docs.python.org/3/library/datetime.html?highlight=strftime#strftime-strptime-behavior)
 
 ```python
@@ -1236,19 +1324,61 @@ print(td.total_seconds())
 
 ```
 
+### Lokale Datumswerte
+
+```python
+from datetime import datetime
+import locale
+
+locale.setlocale(locale.LC_ALL, "de_DE")
+# kann auch "de_DE.UTF-8" oder "deu" oder "german" sein
+
+now = datetime.now()
+
+print(now.strftime("%A, %d. %B"))
+# Sonntag, 24. September
+```
+
+## defaultdict
+
+```python
+from collections import defaultdict
+
+d = {}
+
+d["existiertNicht"] # wirft eine KeyError Exception
+
+def generate():
+    print("generate() wurde aufgerufen!")
+    return 0
+
+d = defaultdict(generate) # ohne () übergeben!
+
+print(d["existiertNicht"]) # generate Funktion wird aufgerufen und für den Key der Wert 0 hinterlegt
+
+p = defaultdict(int) # int() erzeugt eine 0
+words = ["Hallo", "Hallo", "Welt"]
+for word in words:
+    p[word] = p[word] + 1 # beim ersten Mal automatisch mit 0 initialisiert
+
+print(p) # "Hallo": 2, "Welt": 1
+```
+
+## Input
+
+```python
+print("Hallo Welt")
+
+age = input("Alter eingeben")
+print(age)
+```
+
 ```python
 ```
 
 ```python
 ```
-```python
-```
 
-```python
-```
-
-```python
-```
 ```python
 ```
 
@@ -1257,6 +1387,7 @@ print(td.total_seconds())
 
 ```python
 ```
+
 ```python
 ```
 
