@@ -1,7 +1,7 @@
 {
-    "python.dataScience.jupyterServerURI": "local",
     "python.autoComplete.extraPaths": [
     "python.autoComplete.extraPaths"
     ],
-    "python.globalModuleInstallation": true
+    "python.globalModuleInstallation": true,
+    "jupyter.jupyterServerType": "local"
 }

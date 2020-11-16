@@ -120,6 +120,11 @@ str(variable)
 int(variable)
 float(variable)
 
+## Runden
+
+über round(num, nachkommastellen)
+oder über print("Dein BMI ist {0:.1f}".format(bmi))
+
 ## Listen
 
 Deklaration mit ["", "", ""]
@@ -1373,19 +1378,134 @@ age = input("Alter eingeben")
 print(age)
 ```
 
+## Kommandozeilenergumente
+
 ```python
+import sys
+print(sys.argv) # gibt Liste aller Prameter (0 ist das Python Skript selbst) aus
+
+if len(sys.argv) >= 2: # Mindestens ein weiterer Parameter nach dem Skriptnamen
+    print("Der Parameter " + sys.argv[1] + " wurde übergeben")
+else:
+    print("Bitte einen Parameter angeben")
+```
+
+## Das Modul os
+
+```python
+import os
+print(os.listdir(".")) # gibt mir alle Dateien im aktuellen Ordner aus
+# das ist nicht zwingend der Ordner, wo das Python Skript liegt
+
+print(__file__) # das ist der absolute Pfad zum aktuellen Python Skript
+print(os.path.dirname(__file__)) # das ist der absolut Pfad zum Ordner, in dem das Skript liegt
+
+with open(os.path.join(os.path.dirname(__file__), "datei.txt"), "r") as file:
+    for line in file:
+        print(line)
+
+print(os.listdir(os.path.dirname(__file__))) # gibt mir alle Dateien im Ordner des Python Skrips aus
 ```
 
 ```python
+import os
+
+folder = os.path.join(os.path.dirname(__file__), "ordner")
+print(os.listdir(folder)) # Zeigt alle Dateien und Ordner an - ohne Unterscheidung
+
+for file in os.listdir(folder):
+    file_path = os.path.join(folder, file)
+    if os.path.isdir(file_path):
+        print(file + " ist ein Ordner")
+    else:
+        print(file + " ist eine Datei")
+
 ```
 
 ```python
+import os
+
+maxcount=0
+
+folder = os.path.join(os.path.dirname(__file__), "names")
+print(os.listdir(folder))
+for file in os.listdir(folder):
+    file_path = os.path.join(folder, file)
+    print(file_path)
+    if os.path.isdir(file_path):
+        print(file + " ist ein Ordner")
+    else:
+        print("Ich durchsuche die Datei: " + file)
+        with open(file_path, "r", encoding="utf-8") as quelle:
+            for line in quelle:
+                if line.split(" ")[0] == "Max":
+                    maxcount+=1
+
+print("Der Name Max wurde " + str(maxcount) + " mal als Vorname gefunden")
 ```
 
-```python
-```
+## Umlaute und Kodierungen
 
 ```python
+import os
+
+filename = os.path.join(os.path.dirname(__file__), "umlaute.txt")
+
+with open(filename, "r", encoding="utf-8") as file:
+    for line in file:
+        print(line)
+
+filename_out = os.path.join(os.path.dirname(__file__), "umlaute_out.txt")
+
+with open(filename_out, "w", encoding="utf-8") as file:
+    file.write("Müller")
+```
+
+## Jupyther Widgets
+
+[https://ipywidgets.readthedocs.io/en/stable/examples/Widget%20List.html#Complete-list](https://ipywidgets.readthedocs.io/en/stable/examples/Widget%20List.html#Complete-list)
+
+```python
+import ipywidgets as widgets
+from IPython.display import display
+import csv
+
+vorname = widgets.Text(description="Vorname:", value="")
+display(vorname)
+
+name = widgets.Text(description="Name:", value="")
+display(name)
+
+studienfach = widgets.RadioButtons(
+    options=['Bitte auswählen', 'Mathe', 'Informatik', 'Philosophie', 'Kulturwissenschaften', 'Psychologie'],
+    description='Studienfach:',
+    disabled=False
+)
+display(studienfach)
+
+button = widgets.Button(description="Student Eintragen")
+display(button)
+
+def save_entry(event):
+    if vorname.value =="":
+        print("Bitte einen Vornamen eingeben")
+
+    elif name.value =="":
+        print("Bitte einen Namen eingeben")
+
+    elif studienfach.value =="Bitte auswählen":
+        print("Bitte ein Fach wählen")
+
+    else:
+        with open("students.csv", "a", newline="", encoding="utf-8") as f:
+            writer = csv.writer(f, delimiter=";")
+            writer.writerow([vorname.value, name.value, studienfach.value])
+            print([vorname.value, name.value, studienfach.value])
+        vorname.value=""
+        name.value=""
+        studienfach.value="Bitte auswählen"
+
+button.on_click(save_entry)
 ```
 
 ```python
