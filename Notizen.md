@@ -116,14 +116,16 @@ print("Ich habe {number} {animal}").format(number=5, animal="Katzen")) # man kan
 
 ## Typenumwandlung
 
-str(variable)
-int(variable)
-float(variable)
+`str(variable)`
+
+`int(variable)`
+
+`float(variable)`
 
 ## Runden
 
-über round(num, nachkommastellen)
-oder über print("Dein BMI ist {0:.1f}".format(bmi))
+über `round(num, nachkommastellen)`
+oder über `print("Dein BMI ist {0:.1f}".format(bmi))`
 
 ## Listen
 
@@ -438,7 +440,7 @@ if "Budapest" in d:
 
 ```python
 t = (1, 2, 3)  # Liste hat eckige Klammern, Dictionary {} und Tupel ()
-'kann nachträglich nicht verändert werden (Immutable)
+# kann nachträglich nicht verändert werden (Immutable)
 
 student = ("Max Müller", 22, "Informatik")
 
@@ -449,9 +451,8 @@ subject = student[2]
 
 ### Entpacken eines Tupels
 
-alternativ zum beispiel davor
-
 ```python
+# alternativ zum Beispiel davor
 name, age, subject = student
 print(name)
 print(age)
@@ -684,13 +685,13 @@ print(isinstance(student, Student)) # True
 ## Bennung von Klassen und Variablen
 
 ...gemäß styleguide
-PascalCase vs camelCase vs sneak_case
+**PascalCase** vs **camelCase** vs **sneak_case**
 
-Klassennamen: PascalCase
-Variablen: sneak_case
-Funktionsname: sneak_case
+Klassennamen: **PascalCase**
+Variablen: **sneak_case**
+Funktionsname: **sneak_case**
 
-cameCase kommt in Python nicht vor!
+**camelCase** kommt in Python nicht vor!
 
 ## Statische Variablen
 
@@ -704,7 +705,7 @@ print(c.price)
 Car.price  ="cheap" # ändern der Variable in der Klasse
 print(c.price) # ändert alle Instanzen
 
-# das will man meistens nicht, also drau achten:
+# das will man meistens nicht, also drauf achten:
 
 class Car:
     def __init__(self):
@@ -998,7 +999,7 @@ s.add("Mars")
 s.add("Mars")
 print(s)
 
-if "Mars" in s: # ist performance mäßig mit einem Set optimal
+if "Mars" in s: # ist performancemäßig mit einem Set optimal
     print("Mars ist im Set")
 ```
 
