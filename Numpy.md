@@ -92,10 +92,81 @@ b = a * 2 # [2, 4, 6]
 
 ```
 
+## Pandas
+
+```python
+import pandas as pd
+
+df = pd.read_csv("xyz.csv", delimiter=",")
+
+df # gibt ganzes dataframe aus
+
+df.head() # nur erste Zeilen ausgeben
+
+len(df)
+
+df["Name"] #gibt die Spalte Name zurück
+
+df.iloc[0] # ganze Zeile an index location zurückgeben
+
+entry = df.iloc[0]
+print(entry["Name"])
+
+
+df.iloc[4:8] # wie beim List Slicing (Positionen 4, 5, 6, 7)
+
+
+
+
+```
 
 ```python
 ```
 
+```python
+```
+
+```python
+```
+
+```python
+```
+
+```python
+```
+
+```python
+```
+
+```python
+```
+
+```python
+```
+
+```python
+```
+
+```python
+```
+
+```python
+```
+
+```python
+```
+
+```python
+```
+
+```python
+```
+
+```python
+```
+
+```python
+```
 
 ```python
 ```
