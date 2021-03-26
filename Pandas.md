@@ -5,7 +5,11 @@
 ```python
 import pandas as pd
 
+# CSV Öffnen
 df = pd.read_csv("xyz.csv", delimiter=",")
+
+# Excel öffnen (Default-Engine XLRD unterstützt nur noch "xls")
+df = pd.read_excel("daten.xlsx", engine='openpyxl')
 
 df # gibt ganzes dataframe aus
 
@@ -39,7 +43,7 @@ for pos, d in df.iterrows(): # das Tupel können wir direkt im Aufruf zerlegen
 
 for pos, d in df.iterrows():
     print(d["Name"]) # je Zeile nur die Werte der Spalte "Name" ausgeben
-    # hat den Typ pandas.core.series.Series
+    # d hat den Typ pandas.core.series.Series
 ```
 
 ## Spalte ausgeben
@@ -63,19 +67,53 @@ df[df["Year"] < 1990] # gib mir ein neues df mit allen Zeilen wo die Bedingung e
 df2 = df[df["Year"] < 1990] # in neuem df speichern...
 df3 = df2[df2["Gender"] == "Male"] # mehrfaches Filtern am besten in mehreren Stufen...
 
+```
 
+## Sortieren
 
+```python
+df.sort_values("Name") # gibt das df mit Sortierung der Spalte "Name" aus
 
+df2 = df.sort_values("Name", ascending = False) # Sortierreihenfolge umkehren
+
+for name in df2["Name"]: # nur die Namen ausgeben
+    print(name)
+```
+
+## Excel lesen und mit matplotlib ausgeben
+
+```python
+import pandas as pd
+df = pd.read_excel("daten.xlsx", engine='openpyxl')
+df.head()
+
+year = df["Jahr"]
+sales = df["Umsatz"]
+
+%matplotlib inline
+import matplotlib.pyplot as plt
+
+plt.plot(year, sales)
+plt.show()
 
 ```
 
 ```python
-```
+import pandas as pd
+df = pd.read_csv("../data/names.csv", delimiter=",")
 
-```python
-```
+df2 = df[df["Name"] == "Anna"]
+df3 = df2[df2["Gender"] == "F"] 
+df4 = df3[df3["State"] == "CA"]
+df5 = df4.sort_values("Year")
+         
+df5.head()
 
-```python
+%matplotlib inline
+import matplotlib.pyplot as plt
+
+plt.plot(df5["Year"], df5["Count"])
+plt.show()
 ```
 
 ```python
