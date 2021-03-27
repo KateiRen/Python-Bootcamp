@@ -1508,12 +1508,4 @@ def save_entry(event):
 
 button.on_click(save_entry)
 ```
-
-```python
-```
-
-```python
-```
-
-```python
-```
+c
