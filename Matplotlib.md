@@ -20,7 +20,7 @@ plt.show()
 ### Linienfarbe, -type, Marker und Legende
 
 ```python
-# Farbe der Lini efestlegen
+# Farbe der Linie efestlegen
 plt.plot([1, 2, 3], [4, 5, 4], color = "#ff00ff")
 plt.show()
 ```
@@ -80,6 +80,34 @@ plt.show()
 ```
 
 ```python
+# Stacked bar chart
+import numpy as np
+import matplotlib.pyplot as plt
+
+#create data for two teams
+quarter = ['Q1', 'Q2', 'Q3', 'Q4']
+product_A = [14, 17, 12, 9]
+product_B = [7, 15, 24, 18]
+
+#define chart parameters
+N = 4 
+barWidth = .5
+xloc = np.arange(N)
+
+#create stacked bar chart
+p1 = plt.bar(xloc, product_A, width=barWidth)
+p2 = plt.bar(xloc, product_B, bottom=product_A, width=barWidth)
+
+#add labels, title, tick marks, and legend
+plt.ylabel('Sales')
+plt.xlabel('Quarter')
+plt.title('Sales by Product & Quarter')
+plt.xticks(xloc, ('Q1', 'Q2', 'Q3', 'Q4'))
+plt.yticks(np.arange(0, 41, 5))
+plt.legend((p1[0], p2[0]), ('A', 'B'))
+
+#display chart
+plt.show()
 ```
 
 ```python
