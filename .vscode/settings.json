@@ -3,5 +3,8 @@
     "python.autoComplete.extraPaths"
     ],
     "python.globalModuleInstallation": true,
-    "jupyter.jupyterServerType": "local"
+    "jupyter.jupyterServerType": "local",
+    "python.analysis.extraPaths": [
+        "python.autoComplete.extraPaths"
+    ]
 }
