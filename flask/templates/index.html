@@ -12,6 +12,11 @@
 <body>
     <div class="container">
         <h1>Überschrift</h1>
+        <h2>{{name}}</h2>
+        {% for item in items %}
+            <p>{{item}}</p>
+        {% endfor %}
+
         <p class="important">Wichtig!</p>
         <p>Das ist der Seiteninhalt</p>
         <h2>Unterüberschrift</h2>
