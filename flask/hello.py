@@ -9,7 +9,8 @@ def hello():
 def test():
     args = request.args
     name = args.get("name")
-    return render_template("test.html", name = name)
+    age = args.get("age")
+    return render_template("test.html", name = name, age = age)
 
 @app.route("/template")
 def abcdefg():
